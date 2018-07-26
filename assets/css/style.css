@@ -1,0 +1,39 @@
+/* body {
+  /* background: url("../images/FakeNews.jpg") no-repeat center center;
+    background-size: cover;   
+    min-height: 100vh; */
+    /* min-height: 100%;
+    padding-top: 20px;
+    padding-bottom:20px;  */
+    /* background-image: url("C:/Users/jonte/Desktop/Bootcamp/Code/Homework/NewsScrape/assets/images/FakeNews.jpg") class="img-responsive" alt="Get the News"; */
+    /* background-image: url("assets/images/FakeNews.jpg") class="img-responsive" alt="Get the News"; */
+
+    /* background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+    /* background-color: peru;
+    border: black;
+  } */
+  .container {
+    background-color: slateblue;
+  }
+  #articles {
+    height: 700px;
+  }
+  #notes {
+    float: right;
+    width: 30%;
+  }
+  textarea, input {
+    display: block;
+    width: 100%;
+    background-color: #FCF5C7;
+  }
+  input {
+    height: 36px;
+    font-size: 24px;
+  }
+  textarea {
+    height: 200px;
+    font-size: 18px;
+  };

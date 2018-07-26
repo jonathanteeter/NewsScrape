@@ -1,49 +1,96 @@
-// Grab the articles as a json
-$.getJSON("/articles", function(data) {
-  // For each one
-  for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-  }
+
+$(document).ready(function () {
+    
+  // scrape new articles
+  $('#scrape-btn').on('click', function () {
+      $.get('/scrape', function (response) {
+          //console.log(response);
+          var numOfArticles = response.length;
+          alert('Added ' + numOfArticles + ' New Articles!');
+          location.reload();
+      });
+  });
+
+  // clear all scraped articles
+  $('#clear-all').on('click', function () {
+    $.get('/clear', function (response) {
+        //alert('All articles cleared');
+        location.reload();
+    });
+  });
+
+  $('.scrape-article').on('click', function () {
+    $.post('/saved', function(response) {
+      console.log("testing routes");
+    });
+  })
 });
 
+
+
+// // Grab the articles as a json
+// $.getJSON("/articles", function(data) {
+//   // For each one
+
+//   // var article_id = data[i]._id;
+//   // var article_title = data[i].title;
+//   // var article_link = data[i].link;
+//   console.log('MY DATA = ' + data);
+  
+//   for (var i = 0; i < 10; i++) {  // could use data.length
+//     // Display the apropos information on the page
+
+//     // $("#articles").append("<li class='list-group-item' data='" + data[i]._id + "'/>" + data[i].title + data[i].link + "</li>");
+
+//     $("#articles").append(`
+//       <li class="article-id" data=${data[i]._id}">
+//         <a href="${data[i].link}">
+//           <h4>${data[i].title}<h4>
+//         </a>
+//         <h4>${data[i].summary}<h4>
+//       </li>`);
+//   }
+// });
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
-  // Empty the notes from the note section
-  $("#notes").empty();
-  // Save the id from the p tag
-  var thisId = $(this).attr("data-id");
+// $(document).on("click", "p", function() {
+//   // Empty the notes from the note section
+//   $("#notes").empty();
+//   // Save the id from the p tag
+//   var thisId = $(this).attr("data-id");
 
-  // Now make an ajax call for the Article
-  $.ajax({
-    method: "GET",
-    url: "/articles/" + thisId
-  })
-    // With that done, add the note information to the page
-    .then(function(data) {
-      console.log(data);
-      // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+//   // Now make an ajax call for the Article
+//   $.ajax({
+//     method: "GET",
+//     url: "/articles/" + thisId
+//   })
+//     // With that done, add the note information to the page
+//     .then(function(data) {
+//       console.log(data);
+//       // The title of the article
+//       $("#notes").append("<h2>" + data.title + "</h2>");
+//       // An input to enter a new title
+//       $("#notes").append("<input id='titleinput' name='title' >");
+//       // A textarea to add a new note body
+//       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+//       // A button to submit a new note, with the id of the article saved to it
+//       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
-      // If there's a note in the article
-      if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
-      }
-    });
-});
+//       // If there's a note in the article
+//       if (data.note) {
+//         // Place the title of the note in the title input
+//         $("#titleinput").val(data.note.title);
+//         // Place the body of the note in the body textarea
+//         $("#bodyinput").val(data.note.body);
+//       }
+//     });
+// });
 
-// When you click the savenote button
-$(document).on("click", "#savenote", function() {
+// When you click the Saved Articles button
+$(document).on("click", "#save-btn", function() {
+  event.preventDefault();
+  
+  console.log("saved button has been clicked");
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
@@ -53,18 +100,18 @@ $(document).on("click", "#savenote", function() {
     url: "/articles/" + thisId,
     data: {
       // Value taken from title input
-      title: $("#titleinput").val(),
+      title: $(".headline").val(),
       // Value taken from note textarea
-      body: $("#bodyinput").val()
+      body: $(".summary").val()
     }
   })
-    // With that done
-    .then(function(data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
-    });
+  // With that done
+  .then(function(data) {
+    // Log the response
+    console.log(data);
+    // Empty the notes section
+    // $("#notes").empty();
+  });
 
   // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
