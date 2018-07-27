@@ -17,6 +17,9 @@
   .container {
     background-color: slateblue;
   }
+  #navSpace {
+    margin-bottom: 150px;
+  }
   #articles {
     height: 700px;
   }
