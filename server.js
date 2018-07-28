@@ -14,7 +14,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/nytHeadlines";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
