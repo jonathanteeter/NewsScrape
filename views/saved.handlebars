@@ -1,0 +1,34 @@
+  <div class="container">
+
+  &nbsp
+  &nbsp
+
+  {{!-- <h4><i>Select a headline to read the article of interest ...</i></h4> --}}
+
+  <h1>Saved Articles PAGE</h1>
+
+<div>
+ {{#each articles}}
+    {{#if this.saved}}
+    <p>{{this.title}}</p>
+    <p>{{this.summary}}</p>
+    {{/if}}
+ {{/each}}
+ </div>
+
+  {{!-- {{#each article}}
+  <div class="article">
+      <h3 class="headline">{{title}}</h3>
+      <div class="details">
+          <p class="summary">{{summary}}</p>
+          <a class="link" href="{{link}}">{{link}}</a>
+          <br>
+          <button class="btn-success btn-md" href="'/articles/'+ {{_id}}" type="button" id="save-btn" data-id="{{_id}}" title="{{title}}" toggle="target: #saved-modal">Save Article</button>
+          <button class="btn-success btn-md" type="button" id="{{_id}}" info="{{title}}" toggle="target: #notes-modal">Article Notes</button>
+      </div>
+  </div>
+  {{/each}}
+</div> --}}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="app.js"></script>

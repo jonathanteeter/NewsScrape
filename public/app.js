@@ -102,7 +102,9 @@ $(document).on("click", "#save-btn", function() {
       // Value taken from title input
       title: $(".headline").val(),
       // Value taken from note textarea
-      body: $(".summary").val()
+      body: $(".summary").val(), 
+      
+      saved: true
     }
   })
   // With that done

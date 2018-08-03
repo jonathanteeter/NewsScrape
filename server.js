@@ -86,6 +86,8 @@ app.get('/scrape', function (req, res) {
               article.save();
           };
       });
+      // If we were able to successfully scrape and save an Article, send a message to the client
+      res.send("Scrape Complete");
       res.send(array);
   });
 });
@@ -154,7 +156,7 @@ app.get("/articles", function(req, res) {
     });
 });
 
-// Route to get specific Articles by id, populate it with it's note
+// Route to GET a specific Articles by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
   console.log(req.params.id);
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -171,7 +173,7 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
-// Route to save an Article's Note
+// Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function(req, res) {
   var id = req.params.id;
   console.log("hello", id);
@@ -213,12 +215,14 @@ app.post("/saved", function(req,res) {
   });
 })
 
-// Routes to get Saved Article
+// Get Saved Article
 app.get("/saved", function(req,res) {
   db.Article
-      .find({isSaved: true})
+      .find({saved: true})
       .then(function(dbArticle) {
-          res.json(dbArticle);
+        res.render("saved", {articles: dbArticle});
+          // res.json(dbArticle);
+        console.log(dbArticle);
       })
       .catch(function(err) {
           return res.json(err);
